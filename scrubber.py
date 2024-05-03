@@ -25,9 +25,13 @@ with open(input_file, 'r') as file:
         for row in reader:
             county = row[headers[county_index]]
 
-            # Check if the county is a 5-digit zipcode
-            if county.isdigit() and len(county.strip()) == 5:
-                # Write the county to the output CSV
+            # Check if the county is a digit and its length is less than 5
+            if county.isdigit() and len(county.strip()) <= 5:
+                # Left-pad the county with zeros until it reaches a length of 5
+                county = county.zfill(5)
+                
+                # Write the padded county to the output CSV
                 writer.writerow([county])
+                
 
 print("CSV file created successfully.")
